@@ -83,8 +83,7 @@ namespace AddressBook.Services
                 {
                     ShowContactDetails(id);
                 }
-            }
-           
+            }           
         }
         public void ShowContactDetails(string id)
         {
