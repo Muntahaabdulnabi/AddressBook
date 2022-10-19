@@ -24,7 +24,7 @@ namespace AddressBook.Services
     {
         private List<Contact> _contacts = new(); //Skapar en lista för att spara och visa contacts 
         private IFileManager _fileManager = new FileManager(); //Funktioner för att läsa och skriva filen
-        private string _filePath = ""; 
+        private string _filePath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}\file.Json"; 
         public void ShowMenuOptions()
         {
             Console.Clear();
@@ -164,7 +164,32 @@ namespace AddressBook.Services
         }
         public void ShowAddContact()
         {
-            throw new NotImplementedException();
+            var contact = new Contact();
+
+            Console.Clear();    
+            Console.WriteLine("¤¤¤¤¤¤ Add New Contact ¤¤¤¤¤¤");
+
+            Console.Write("Enter contact first name: ");
+            var firstName = Console.ReadLine();
+
+            Console.Write("Enter contact last name: ");
+            var lastName = Console.ReadLine();
+
+            Console.Write("Enter email: ");
+            var email = Console.ReadLine();
+
+            Console.Write("Enter Street name: ");
+            var streetName = Console.ReadLine();
+
+            Console.Write("Enter postal code: ");
+            var postalCode = Console.ReadLine();
+
+            Console.Write("Enter city: ");
+            var city = Console.ReadLine();
+
+            _contacts.Add(contact);
+
+            _fileManager.Save(_filePath, JsonConvert.SerializeObject(_contacts));
         }      
         public void ShowSettings()
         {
