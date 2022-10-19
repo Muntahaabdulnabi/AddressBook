@@ -1,8 +1,10 @@
 ﻿using AddressBook.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace AddressBook.Services
@@ -22,6 +24,7 @@ namespace AddressBook.Services
     {
         private List<Contact> _contacts = new(); //Skapar en lista för att spara och visa contacts 
         private IFileManager _fileManager = new FileManager(); //Funktioner för att läsa och skriva filen
+        private string _filePath = ""; 
         public void ShowMenuOptions()
         {
             Console.Clear();
@@ -56,12 +59,19 @@ namespace AddressBook.Services
         }
         public void ShowAddressBook()
         {
+            // För att konvertera listan skapas Json file
+            try
+            {
+                _contacts = JsonConvert.DeserializeObject<List<Contact>>(_fileManager.Read(_filePath));
+            } catch { } 
+            
             Console.Clear();
             Console.WriteLine("¤¤¤¤¤¤ Address Book ¤¤¤¤¤¤");
             foreach (var contact in _contacts)
                 Console.WriteLine($"{contact.Id} {contact.FirstName} {contact.LastName}");
-            Console.WriteLine();
+            if(_contacts.Count > 0)
 
+            Console.WriteLine();
             Console.WriteLine("View Contact Details? (y/n): ");
             var option = Console.ReadLine();
             if (option?.ToLower() == "y")
