@@ -31,15 +31,15 @@ namespace AddressBook.Services
             Console.WriteLine("¤¤¤¤¤¤ Menu ¤¤¤¤¤¤");
             Console.WriteLine("1. View Address Book");
             Console.WriteLine("2. Add New Contact");
-            Console.WriteLine("3. Settings");
-            Console.WriteLine();
+            Console.WriteLine("3. Settings");            
             Console.Write("Choose one option: ");
             var option = Console.ReadLine();
+            Console.WriteLine();
 
             switch (option)
             {
                 case "1":
-                    ShowMenuOptions();
+                    ShowAddressBook();
                     break;
                                    
                 case "2":
@@ -63,25 +63,28 @@ namespace AddressBook.Services
             try
             {
                 _contacts = JsonConvert.DeserializeObject<List<Contact>>(_fileManager.Read(_filePath));
-            } catch { } 
+            } 
+            catch { } 
             
             Console.Clear();
             Console.WriteLine("¤¤¤¤¤¤ Address Book ¤¤¤¤¤¤");
             foreach (var contact in _contacts)
                 Console.WriteLine($"{contact.Id} {contact.FirstName} {contact.LastName}");
             if(_contacts.Count > 0)
-
-            Console.WriteLine();
-            Console.WriteLine("View Contact Details? (y/n): ");
-            var option = Console.ReadLine();
-            if (option?.ToLower() == "y")
             {
-                Console.WriteLine("Enter Contact Id: ");
-                var id = Console.ReadLine();
-
-                if (!string.IsNullOrEmpty(id))
+                Console.WriteLine();
+                Console.Write("View Contact Details? (y/n): ");
+            
+                var option = Console.ReadLine();
+                if (option?.ToLower() == "y")
                 {
-                    ShowContactDetails(id);
+                    Console.WriteLine("Enter Contact Id: ");
+                    var id = Console.ReadLine();
+
+                    if (!string.IsNullOrEmpty(id))
+                    {
+                        ShowContactDetails(id);
+                    }
                 }
             }           
         }
@@ -108,11 +111,11 @@ namespace AddressBook.Services
             switch (option)
             {
                 case "1":
-                    ShowUpdateContact(contact!);
+                    ShowUpdateContact(contact);
                     break;
 
                 case "2":
-                    DeleteContact(contact!.Id);
+                    DeleteContact(contact.Id);
                     break;
 
                 default: 
@@ -159,7 +162,7 @@ namespace AddressBook.Services
         }
         public void DeleteContact(Guid id)
         {
-            var contact = _contacts.Where(x => x.Id != id);
+           _contacts = _contacts.Where(x => x.Id != id).ToList();
             _fileManager.Save(_filePath, JsonConvert.SerializeObject(_contacts));
         }
         public void ShowAddContact()
