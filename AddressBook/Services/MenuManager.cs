@@ -78,7 +78,7 @@ namespace AddressBook.Services
         }
         public void ShowContactDetails(string id)
         {
-            throw new NotImplementedException();
+            
         }
         public void ShowUpdateContact(Contact contact)
         {
