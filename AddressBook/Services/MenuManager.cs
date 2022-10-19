@@ -119,14 +119,40 @@ namespace AddressBook.Services
                     Console.WriteLine("Enter a valid option");
                     break;
             }
-
-
-
         }
         public void ShowUpdateContact(Contact contact)
         {
            var index = _contacts.IndexOf(contact);
-           
+
+            Console.Write("Enter contact first name:  ");
+            var firstName = Console.ReadLine();
+            if(!string.IsNullOrEmpty(firstName))
+                contact.FirstName = firstName;  
+
+            Console.Write("Enter contact last name: ");
+            var lastName = Console.ReadLine();
+            if(!string.IsNullOrEmpty(lastName))
+                contact.LastName = lastName;
+
+            Console.Write("Enter contact email: ");
+            var email = Console.ReadLine();
+            if(!string.IsNullOrEmpty(email))
+                contact.Email = email;
+
+            Console.Write("Enter street name: ");
+            var streetName = Console.ReadLine();
+            if(!string.IsNullOrEmpty(streetName))
+                contact.StreetName = streetName;
+
+            Console.Write("Enter postal code: ");
+            var postalCode = Console.ReadLine();
+            if(!string.IsNullOrEmpty(postalCode))
+                contact.PostalCode = postalCode;
+
+            Console.WriteLine("Enter city: ");
+            var city = Console.ReadLine();
+            if(!string.IsNullOrEmpty(city))
+                contact.City = city;
 
         }
         public void DeleteContact(Guid id)
