@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 namespace AddressBook.Services
 {
     // funktioner som behövs för att läsa och skriva
-    internal interface IfileManager
+    internal interface IFileManager
     {
         public void Save(string filePath, string content);
         public string Read(string filePath);
     }
-    internal class FileManager : IfileManager // implementering av interfacet
+    internal class FileManager : IFileManager // implementering av interfacet
     {
         public string Read(string filePath)
         {

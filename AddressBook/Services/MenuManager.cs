@@ -6,9 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace AddressBook.Services
-{
-    // ett interface om de metoder som behövs till adressboken
-    internal interface IMenuManager
+{    
+    internal interface IMenuManager        // ett interface om de metoder som behövs till adressboken
     {
         public void ShowMenuOptions();   // En metod för att visa menyn
         public void ShowAddressBook();
@@ -21,6 +20,8 @@ namespace AddressBook.Services
     }
     internal class MenuManager : IMenuManager  //Implementera interfacet
     {
+        private List<Contact> _contacts = new(); //Skapar en lista för att spara och visa contacts 
+        private IFileManager _fileManager = new FileManager(); //Funktioner för att läsa och skriva filen
         public void ShowMenuOptions()
         {
             Console.Clear();
@@ -55,7 +56,25 @@ namespace AddressBook.Services
         }
         public void ShowAddressBook()
         {
-            throw new NotImplementedException();
+            Console.Clear();
+            Console.WriteLine("¤¤¤¤¤¤ Address Book ¤¤¤¤¤¤");
+            foreach (var contact in _contacts)
+                Console.WriteLine($"{contact.Id} {contact.FirstName} {contact.LastName}");
+            Console.WriteLine();
+
+            Console.WriteLine("View Contact Details? (y/n): ");
+            var option = Console.ReadLine();
+            if (option?.ToLower() == "y")
+            {
+                Console.WriteLine("Enter Contact Id: ");
+                var id = Console.ReadLine();
+
+                if (!string.IsNullOrEmpty(id))
+                {
+                    ShowContactDetails(id);
+                }
+            }
+           
         }
         public void ShowContactDetails(string id)
         {
