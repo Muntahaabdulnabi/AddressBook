@@ -87,7 +87,41 @@ namespace AddressBook.Services
         }
         public void ShowContactDetails(string id)
         {
-            
+            var contact = _contacts.FirstOrDefault(x => x.Id == new Guid(id));
+
+            Console.Clear();
+            Console.WriteLine("¤¤¤¤¤¤ View Contacts Details ¤¤¤¤¤¤");
+            Console.WriteLine($"ID:         \t {contact?.Id}");
+            Console.WriteLine($"FirstName:  \t {contact?.FirstName}");
+            Console.WriteLine($"LastName:   \t {contact?.LastName}");
+            Console.WriteLine($"Email:      \t {contact?.Email}");
+            Console.WriteLine($"StreetName: \t {contact?.StreetName}");
+            Console.WriteLine($"PostalCode: \t {contact?.PostalCode}");
+            Console.WriteLine($"City:       \t {contact?.City}");
+            Console.WriteLine();
+
+            Console.WriteLine("1. Edit");
+            Console.WriteLine("2. Delete");
+            Console.Write("Choose one option: ");
+            var option = Console.ReadLine();
+
+            switch (option)
+            {
+                case "1":
+                    ShowUpdateContact(contact);
+                    break;
+
+                case "2":
+                    DeleteContact(contact.Id);
+                    break;
+
+                default: 
+                    Console.WriteLine("Enter a valid option");
+                    break;
+            }
+
+
+
         }
         public void ShowUpdateContact(Contact contact)
         {
