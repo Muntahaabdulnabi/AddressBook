@@ -154,6 +154,8 @@ namespace AddressBook.Services
             if(!string.IsNullOrEmpty(city))
                 contact.City = city;
 
+            _fileManager.Save(_filePath, JsonConvert.SerializeObject(_contacts));
+
         }
         public void DeleteContact(Guid id)
         {
