@@ -78,7 +78,7 @@ namespace AddressBook.Services
                 var option = Console.ReadLine();
                 if (option?.ToLower() == "y")
                 {
-                    Console.WriteLine("Enter Contact Id: ");
+                    Console.Write("Enter Contact Id: ");
                     var id = Console.ReadLine();
 
                     if (!string.IsNullOrEmpty(id))
