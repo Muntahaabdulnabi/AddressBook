@@ -108,11 +108,11 @@ namespace AddressBook.Services
             switch (option)
             {
                 case "1":
-                    ShowUpdateContact(contact);
+                    ShowUpdateContact(contact!);
                     break;
 
                 case "2":
-                    DeleteContact(contact.Id);
+                    DeleteContact(contact!.Id);
                     break;
 
                 default: 
@@ -125,11 +125,14 @@ namespace AddressBook.Services
         }
         public void ShowUpdateContact(Contact contact)
         {
-            throw new NotImplementedException();
+           var index = _contacts.IndexOf(contact);
+           
+
         }
         public void DeleteContact(Guid id)
         {
-            throw new NotImplementedException();
+            var contact = _contacts.Where(x => x.Id != id);
+            _fileManager.Save(_filePath, JsonConvert.SerializeObject(_contacts));
         }
         public void ShowAddContact()
         {
