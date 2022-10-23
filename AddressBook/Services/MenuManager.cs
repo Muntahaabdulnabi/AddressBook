@@ -24,17 +24,18 @@ namespace AddressBook.Services
     {
         private List<Contact> _contacts = new(); //Skapar en lista för att spara och visa contacts 
         private IFileManager _fileManager = new FileManager(); //Funktioner för att läsa och skriva filen
-        private string _filePath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}\file.Json"; 
+        private string _filePath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}\file.Json";  
         public void ShowMenuOptions()
         {
             Console.Clear();
             Console.WriteLine("¤¤¤¤¤¤ Menu ¤¤¤¤¤¤");
             Console.WriteLine("1. View Address Book");
             Console.WriteLine("2. Add New Contact");
-            Console.WriteLine("3. Settings");            
+            Console.WriteLine("3. Settings");
+            Console.WriteLine("");
             Console.Write("Choose one option: ");
             var option = Console.ReadLine();
-            Console.WriteLine();
+            
 
             switch (option)
             {
@@ -59,32 +60,34 @@ namespace AddressBook.Services
         }
         public void ShowAddressBook()
         {
-            // För att konvertera listan skapas Json file. 
+             
             try
             {
-                _contacts = JsonConvert.DeserializeObject<List<Contact>>(_fileManager.Read(_filePath));
+                _contacts = JsonConvert.DeserializeObject<List<Contact>>(_fileManager.Read(_filePath));   // För att konvertera om Json koden till en lista
             } 
-            catch { } 
+            catch { } //Försöka göra hämmtningen. 
             
             Console.Clear();
             Console.WriteLine("¤¤¤¤¤¤ Address Book ¤¤¤¤¤¤");
-            foreach (var item in _contacts)
-                Console.WriteLine($"{item.Id} - {item.FirstName} {item.LastName}");
+            
+            foreach (var contact in _contacts)
+                Console.WriteLine($"{contact.Id} - {contact.FirstName} {contact.LastName}");
+            
+            Console.WriteLine();
             if(_contacts.Count > 0)
             {
                 Console.WriteLine();
                 Console.Write("View Contact Details? (y/n): ");
-            
                 var option = Console.ReadLine();
+                
                 if (option?.ToLower() == "y")
                 {
                     Console.Write("Enter Contact Id: ");
                     var id = Console.ReadLine();
 
                     if (!string.IsNullOrEmpty(id))
-                    {
-                        ShowContactDetails(id);
-                    }
+                         ShowContactDetails(id);
+                    
                 }
             }           
         }
@@ -94,13 +97,13 @@ namespace AddressBook.Services
 
             Console.Clear();
             Console.WriteLine("¤¤¤¤¤¤ View Contacts Details ¤¤¤¤¤¤");
-            Console.WriteLine($"ID:         \t {contact?.Id}");
-            Console.WriteLine($"FirstName:  \t {contact?.FirstName}");
-            Console.WriteLine($"LastName:   \t {contact?.LastName}");
-            Console.WriteLine($"Email:      \t {contact?.Email}");
-            Console.WriteLine($"StreetName: \t {contact?.StreetName}");
-            Console.WriteLine($"PostalCode: \t {contact?.PostalCode}");
-            Console.WriteLine($"City:       \t {contact?.City}");
+            Console.WriteLine($"ID:  \t\t {contact?.Id}");
+            Console.WriteLine($"FirstName:  \t\t {contact?.FirstName}");
+            Console.WriteLine($"LastName:  \t \t {contact?.LastName}");
+            Console.WriteLine($"Email:      \t\t {contact?.Email}");
+            Console.WriteLine($"StreetName: \t\t {contact?.StreetName}");
+            Console.WriteLine($"PostalCode: \t\t{contact?.PostalCode}");
+            Console.WriteLine($"City:       \t\t {contact?.City}");
             Console.WriteLine();
 
             Console.WriteLine("1. Edit");
@@ -111,7 +114,7 @@ namespace AddressBook.Services
             switch (option)
             {
                 case "1":
-                    ShowUpdateContact(contact);
+                    ShowUpdateContact(contact!);
                     break;
 
                 case "2":
@@ -173,22 +176,22 @@ namespace AddressBook.Services
             Console.WriteLine("¤¤¤¤¤¤ Add New Contact ¤¤¤¤¤¤");
 
             Console.Write("Enter contact first name: ");
-            var firstName = Console.ReadLine();
+            contact.FirstName = Console.ReadLine();
 
             Console.Write("Enter contact last name: ");
-            var lastName = Console.ReadLine();
+            contact.LastName = Console.ReadLine();
 
             Console.Write("Enter email: ");
-            var email = Console.ReadLine();
+            contact.Email = Console.ReadLine();
 
             Console.Write("Enter Street name: ");
-            var streetName = Console.ReadLine();
+            contact.StreetName = Console.ReadLine();
 
             Console.Write("Enter postal code: ");
-            var postalCode = Console.ReadLine();
+            contact.PostalCode = Console.ReadLine();
 
             Console.Write("Enter city: ");
-            var city = Console.ReadLine();
+            contact.City = Console.ReadLine();
 
             _contacts.Add(contact);
 
