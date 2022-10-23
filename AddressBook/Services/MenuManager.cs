@@ -59,7 +59,7 @@ namespace AddressBook.Services
         }
         public void ShowAddressBook()
         {
-            // För att konvertera listan skapas Json file
+            // För att konvertera listan skapas Json file. 
             try
             {
                 _contacts = JsonConvert.DeserializeObject<List<Contact>>(_fileManager.Read(_filePath));
@@ -152,7 +152,7 @@ namespace AddressBook.Services
             if(!string.IsNullOrEmpty(postalCode))
                 contact.PostalCode = postalCode;
 
-            Console.WriteLine("Enter city: ");
+            Console.Write("Enter city: ");
             var city = Console.ReadLine();
             if(!string.IsNullOrEmpty(city))
                 contact.City = city;
@@ -162,7 +162,7 @@ namespace AddressBook.Services
         }
         public void DeleteContact(Guid id)
         {
-           _contacts = _contacts.Where(x => x.Id != id).ToList();
+           _contacts = _contacts.Where(x => x.Id != id).ToList(); //Lambda expression
             _fileManager.Save(_filePath, JsonConvert.SerializeObject(_contacts));
         }
         public void ShowAddContact()
