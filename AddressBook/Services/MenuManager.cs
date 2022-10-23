@@ -68,8 +68,8 @@ namespace AddressBook.Services
             
             Console.Clear();
             Console.WriteLine("¤¤¤¤¤¤ Address Book ¤¤¤¤¤¤");
-            foreach (var contact in _contacts)
-                Console.WriteLine($"{contact.Id} {contact.FirstName} {contact.LastName}");
+            foreach (var item in _contacts)
+                Console.WriteLine($"{item.Id} - {item.FirstName} {item.LastName}");
             if(_contacts.Count > 0)
             {
                 Console.WriteLine();
